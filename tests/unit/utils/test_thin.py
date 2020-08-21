@@ -4,6 +4,7 @@
 
 import copy
 import os
+import pathlib
 import shutil
 import sys
 import tarfile
@@ -63,18 +64,15 @@ class SSHThinTestCase(TestCase):
             "msgpack": os.path.join(lib_root, "msgpack"),
         }
 
+        code_dir = pathlib.Path(RUNTIME_VARS.CODE_DIR).resolve()
         self.exp_ret = {
-            "distro": os.path.normpath(
-                os.path.join(RUNTIME_VARS.CODE_DIR, "distro.py")
-            ),
-            "jinja2": os.path.normpath(os.path.join(RUNTIME_VARS.CODE_DIR, "jinja2")),
-            "yaml": os.path.normpath(os.path.join(RUNTIME_VARS.CODE_DIR, "yaml")),
-            "tornado": os.path.normpath(os.path.join(RUNTIME_VARS.CODE_DIR, "tornado")),
-            "msgpack": os.path.normpath(os.path.join(RUNTIME_VARS.CODE_DIR, "msgpack")),
-            "certifi": os.path.normpath(os.path.join(RUNTIME_VARS.CODE_DIR, "certifi")),
-            "singledispatch": os.path.normpath(
-                os.path.join(RUNTIME_VARS.CODE_DIR, "singledispatch.py")
-            ),
+            "distro": str(code_dir / "distro.py"),
+            "jinja2": str(code_dir / "jinja2"),
+            "yaml": str(code_dir / "yaml"),
+            "tornado": str(code_dir / "tornado"),
+            "msgpack": str(code_dir / "msgpack"),
+            "certifi": str(code_dir / "certifi"),
+            "singledispatch": str(code_dir / "singledispatch.py"),
         }
         self.exc_libs = ["jinja2", "yaml"]
 
